@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.fjr619.recipemobile.ui.theme.DarkGray
 import com.fjr619.recipemobile.ui.theme.LightGray
 import com.fjr619.recipemobile.ui.theme.Pink
-import com.fjr619.recipemobile.ui.theme.White
 
 @Composable
 fun IngredientsHeader() {

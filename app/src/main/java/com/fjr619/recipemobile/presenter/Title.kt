@@ -1,4 +1,4 @@
-package com.fjr619.recipemobile
+package com.fjr619.recipemobile.presenter
 
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListState
@@ -18,6 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import com.fjr619.recipemobile.headerHeight
+import com.fjr619.recipemobile.paddingMedium
+import com.fjr619.recipemobile.titleFontScaleEnd
+import com.fjr619.recipemobile.titleFontScaleStart
+import com.fjr619.recipemobile.titlePaddingStart
+import com.fjr619.recipemobile.toolbarHeight
 
 @Composable
 fun Title(
