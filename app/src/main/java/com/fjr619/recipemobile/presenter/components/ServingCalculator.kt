@@ -1,5 +1,13 @@
 package com.fjr619.recipemobile.presenter.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -19,6 +27,7 @@ import com.fjr619.recipemobile.R
 import com.fjr619.recipemobile.ui.theme.LightGray
 import com.fjr619.recipemobile.ui.theme.Pink
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ServingCalculator() {
     var value by remember { mutableStateOf(6) }
@@ -33,7 +42,32 @@ fun ServingCalculator() {
 
         Text(text = "Serving", Modifier.weight(1f), fontWeight = FontWeight.Medium)
         CircularButton(iconResource = R.drawable.ic_minus, color = Pink) { value-- }
-        Text(text = "$value", Modifier.padding(16.dp), fontWeight = FontWeight.Medium)
+
+        AnimatedContent(
+            targetState = value,
+            label = "",
+            transitionSpec = {
+                // Compare the incoming number with the previous number.
+                if (targetState > initialState) {
+                    // If the target number is larger, it slides down and fades in
+                    slideInVertically { height -> -height } + fadeIn() with
+                            slideOutVertically { height -> height } + fadeOut()
+                } else {
+                    // If the target number is smaller, it slides up and fades in
+                    slideInVertically { height -> height } + fadeIn() with
+                            slideOutVertically { height -> -height } + fadeOut()
+                }.using(
+                    // Disable clipping since the faded slide-in/out should
+                    // be displayed out of bounds.
+                    SizeTransform(clip = false)
+                )
+            }
+        ) {
+            Text(text = "$it", Modifier.padding(16.dp), fontWeight = FontWeight.Medium)
+
+        }
+
+
         CircularButton(iconResource = R.drawable.ic_plus, color = Pink) { value++ }
     }
 }
